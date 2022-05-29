@@ -17,26 +17,21 @@ function setup() {
   let options = {
     inputs: 34,
     outputs: 4,
-    task: 'classification',
-    debug: true
-  }
-  brain = ml5.neuralNetwork(options);
-//   brain.loadData('poses.json', dataReady);
-
-const modelInfo = {
-    model: 'models/model.json',
-    metadata: 'models/model_meta.json',
-    weights: 'models/model.weights.bin',
+    task: "classification",
+    debug: true,
   };
-  brain.load(modelInfo, brainLoaded);
+  brain = ml5.neuralNetwork(options);
+  //   brain.loadData('poses.json', dataReady);
+
+  brain.loadData("datasets/poses2.json", dataReady);
 }
 
 function dataReady() {
   brain.normalizeData();
-  brain.train({epochs: 15}, finished); 
+  brain.train({ epochs: 15 }, finished);
 }
 
 function finished() {
-  console.log('model trained');
+  console.log("model trained");
   brain.save();
 }
